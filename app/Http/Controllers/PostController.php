@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
+use Illuminate\Support\Carbon;
 
 class PostController extends Controller
 {
@@ -11,9 +13,23 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Post $postModel)
     {
-        return view('post.index');
+
+      $posts = $postModel->getPublishedPosts();
+
+      //простая выборка
+      // $posts = Post::all();
+      // dd($posts);
+
+      //сортировка по заданному полю
+      //$posts = Post::latest('id')->get();
+
+      //сортировка по дате, кот. текущая или прошлая. Будующую не выведет
+    //   $posts = Post::latest('published_at')
+    // ->where('published_at', '>=', Carbon::now())
+    // ->get();
+        return view('post.index', ['posts'=>$posts]);
     }
 
     /**
