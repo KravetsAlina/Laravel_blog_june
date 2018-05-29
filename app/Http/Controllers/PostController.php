@@ -14,10 +14,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Post $postModel)
-    {
-
+      {
       $posts = $postModel->getPublishedPosts();
-
+      return view('post.index', ['posts'=>$posts]);
+      }
       //простая выборка
       // $posts = Post::all();
       // dd($posts);
@@ -29,7 +29,12 @@ class PostController extends Controller
     //   $posts = Post::latest('published_at')
     // ->where('published_at', '>=', Carbon::now())
     // ->get();
-        return view('post.index', ['posts'=>$posts]);
+
+
+  public function unpublished(Post $postModel)
+    {
+    $posts = $postModel->getUnPublishedPosts();
+    return view('post.index', ['posts' => $posts]);
     }
 
     /**

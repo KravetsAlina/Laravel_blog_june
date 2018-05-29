@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', ['as' => 'posts', 'uses' => 'PostController@index']);
+Route::get('/published', ['as' => 'posts.unpublished', 'uses' => 'PostController@unpublished']);
